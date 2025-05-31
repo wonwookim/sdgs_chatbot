@@ -1,0 +1,15 @@
+ESG 하이라이트|ESG 경영체계|1-2
+ESG 하이라이트|리스크 관리|3
+ESG 하이라이트|중대성 평가|4-6
+ESG 하이라이트|이해관계자 소통|7
+Environment|기후변화 대응|8-12
+Environment|환경영향 최소화|13-19
+Environment|친환경 비즈니스 운영|20-21
+Social|안전한 사업장 구축|22-26
+Social|인재 확보와 육성|27-29
+Social|노사관계와 인권 경영|30-31
+Social|협력사 상생|32-34
+Social|지역사회 상생|35-36
+Social|정보보안|37-38
+Governance|윤리 및 준법경영|39-41
+Governance|투명한 지배구조|42-46 
