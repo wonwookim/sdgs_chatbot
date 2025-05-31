@@ -164,7 +164,7 @@ def create_chunks(text, section_type, sub_section, page_num, chunk_size=1000):
 def save_to_chroma(chunks):
     """청크를 ChromaDB에 저장하는 함수"""
     # ChromaDB 클라이언트 초기화
-    client = chromadb.PersistentClient(path="./data/chromadb")
+    client = chromadb.PersistentClient(path="./outputs/chromadb")
     
     # OpenAI의 임베딩 함수 사용
     embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -241,7 +241,7 @@ def main():
     
     if chunks:
         # JSON 파일로 저장
-        output_path = "data/processed/shinhan_chunk.json"
+        output_path = "outputs/shinhan_chunk.json"
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         
         with open(output_path, 'w', encoding='utf-8') as f:
