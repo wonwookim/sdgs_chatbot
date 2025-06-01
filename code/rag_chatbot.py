@@ -274,7 +274,7 @@ def main():
     print("ESG 챗봇을 초기화하는 중...")
     
     # ChromaDB 클라이언트 초기화
-    chroma_client = chromadb.PersistentClient(path="./outputs/chromadb")
+    chroma_client = chromadb.PersistentClient(path="./data/chromadb")
     
     # 임베딩 함수 설정
     embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
