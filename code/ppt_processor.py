@@ -171,7 +171,7 @@ def process_ppt(ppt_path):
 def save_to_chroma(chunks, collection_name):
     """청크를 ChromaDB에 저장하는 함수"""
     # ChromaDB 클라이언트 초기화
-    client = chromadb.PersistentClient(path="./outputs/chromadb")
+    client = chromadb.PersistentClient(path="./data/chromadb")
     
     # OpenAI의 임베딩 함수 사용
     embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
