@@ -25,7 +25,7 @@ cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
 
 def expand_query(query: str, min_length: int = 10) -> str:
     """짧은 쿼리를 LLM을 사용하여 확장"""
-    if len(query) > min_length:
+    if len(query) > min_length: # 쿼리가 최소 길이보다 크면 쿼리 반환
         return query
         
     system_prompt = """너는 사용자의 짧은 질문을 ESG 컨텍스트에 맞게 더 구체적이고 풍부하게 바꿔주는 전문가야.
@@ -63,7 +63,17 @@ def expand_query(query: str, min_length: int = 10) -> str:
         return query
 
 def extract_metadata_filters(query: str) -> Dict[str, str]:
-    """사용자 질문에서 메타데이터 필터 추출"""
+    """사용자 질문에서 메타데이터 필터 추출
+       벡터 DB를 검색할 때, 더 좋은 정확도를 위해 필터링 필요
+       sections: 필터되는 단어는 추후에 추가 가능
+       
+       예시:
+        query: "탄소배출량 관리 방법"
+        return: {"section": "Environment"}
+        
+        query: "cj의 환경 관리"
+        return: {"section": "Environment", "source": "CJ"}
+    """
     filters = {}
     
     # 섹션 필터 추출
@@ -386,7 +396,7 @@ def main():
     # ChromaDB 클라이언트 초기화
     chroma_client = chromadb.PersistentClient(path="./data/chromadb")
     
-    # 임베딩 함수 설정
+    # 임베딩 함수 설정 -> ChromaDB에서 사용하는 임베딩 함수
     embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
         model_name="jhgan/ko-sroberta-multitask"
     )

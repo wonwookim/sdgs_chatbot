@@ -9,15 +9,48 @@ import uuid
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 def get_section_and_subsection(page_num, ppt_name):
-    """페이지 번호와 PPT 이름에 따라 섹션과 서브섹션을 결정하는 함수"""
+    """페이지 번호와 PPT 이름에 따라 섹션과 서브섹션을 결정하는 함수
+       각 섹션과 서브섹션은 ppt 파일에 따라 다르게 정의되어 있음
+       
+       예시: 
+        - cj_section_data.txt
+        
+            [ESG 전략]
+            1-2:ESG 전략
+
+            [Environment]
+            3-9:기후변화 대응
+            10-13:지속 가능한 유통
+            14-16:환경 경영
+            
+        - shinhan_section_data.txt
+        
+            [Environment]
+            1:Environmental
+            2:환경경영 추진 체계
+            3-4:내부 탄소배출량 관리
+            5-6:금융 배출량 관리
+            7-11:친환경 금융 확대
+            12-13:친환경 실천 교육 및 캠페인
+
+            [Social]
+            14:Social
+            15-27:혁신 및 포용금융
+            28-32:지역사회 발전 및 투자
+            33-37:고객 만족도 제고
+            38-45:인재 경영
+            46-48:인권 및 다양성
+            49-51:안전 및 보건
+            52:지속가능한 공급망
+    """
     # PPT 파일명에서 확장자를 제외한 이름을 추출
     base_name = Path(ppt_name).stem
     section_file = f'data/config/{base_name}_section_data.txt'
     
-    try:
+    try: # 섹션 데이터 파일 읽기
         with open(section_file, 'r', encoding='utf-8') as f:
             section_data = f.read()
-    except FileNotFoundError:
+    except FileNotFoundError: # 섹션 데이터 파일이 없으면 'Other' 반환
         print(f"Warning: Section data file {section_file} not found.")
         return 'Other', 'Other'
 
@@ -27,7 +60,7 @@ def get_section_and_subsection(page_num, ppt_name):
     # 섹션 데이터 파싱
     sections = section_data.split('\n\n')
     for section in sections:
-        if not section.strip():
+        if not section.strip(): # 섹션이 비어있을 경우
             continue
         
         lines = section.strip().split('\n')
@@ -51,7 +84,7 @@ def get_section_and_subsection(page_num, ppt_name):
                     current_section = section_name
                     current_subsection = subsection_name
                     break
-    
+    # 현재 보고있는 페이지의 section과 subsection을 반환
     return current_section, current_subsection
 
 def preprocess_text(text):
@@ -95,10 +128,12 @@ def extract_slide_text(slide):
     return preprocess_text(combined_text) if combined_text else None
 
 def process_ppt(ppt_path):
-    """PPT 파일을 처리하고 청크를 생성하는 메인 함수"""
+    """PPT 파일을 처리하고 청크를 생성하는 메인 함수
+       문서 특성 상 섹션과 서브섹션에 따라 문맥이 유지될 수 있기 때문에, 섹션 & 서브섹션으로 chunck를 구성
+    """
     print(f"PPT 파일을 읽는 중: {ppt_path}")
-    presentation = Presentation(ppt_path)
-    total_slides = len(presentation.slides)
+    presentation = Presentation(ppt_path) # PPT 파일 읽기
+    total_slides = len(presentation.slides) # PPT 총 슬라이드 수
     print(f"PPT 총 슬라이드 수: {total_slides}")
     
     # PPT 파일명을 소스 이름으로 사용
@@ -120,7 +155,7 @@ def process_ppt(ppt_path):
         
         slide_text = extract_slide_text(slide)
         
-        if slide_text:
+        if slide_text: # 텍스트가 있으면
             section_key = (section_type, sub_section)
             if section_key not in section_texts:
                 section_texts[section_key] = []
@@ -154,12 +189,12 @@ def process_ppt(ppt_path):
             chunk = {
                 'text': chunk_text,
                 'metadata': {
-                    'section': section_type,
-                    'sub_section': sub_section,
-                    'source': source_name.upper(),
+                    'section': section_type, # 섹션
+                    'sub_section': sub_section, # 서브섹션
+                    'source': source_name.upper(), # 회사 이름
                     'page_range': page_range,  # 페이지 범위를 문자열로 저장
-                    'chunk_index': i,
-                    'total_chunks_in_section': len(split_texts)
+                    'chunk_index': i, # 청크 인덱스
+                    'total_chunks_in_section': len(split_texts) # 섹션 내 청크 수
                 }
             }
             all_chunks.append(chunk)
@@ -173,7 +208,7 @@ def save_to_chroma(chunks, collection_name):
     # ChromaDB 클라이언트 초기화
     client = chromadb.PersistentClient(path="./data/chromadb")
     
-    # OpenAI의 임베딩 함수 사용
+    # openai의 embedding 함수는 비용 발생하기 때문에, 비용 발생하지 않는 함수 사용
     embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
         model_name="jhgan/ko-sroberta-multitask"
     )
