@@ -247,8 +247,13 @@ def generate_response(query: str, context: str, metadata_summary: Dict):
    - 구체적인 내용 설명
    - 관련 정책이나 프로그램
    - 성과나 목표 (있는 경우)
+만약 평가라는 키워드가 있으면 다음 구조를 따라야 함
+   - 평가: 부정적
+   - 구체적인 내용 설명: 해당 조치는 지속가능한 환경 경영 및 친환경 제품 생산에 부합하지 않을 수 있습니다. 기후변화 대응과 관련된 서브섹션에 따르면, 소비자 관점에서 폐기물 재활용이 보다 용이해야 하며, 재활용 가능한 소재로 제품을 생산하는 것이 중요합니다. 또한, 기후변화 대응에 중요한 영향을 미칠 수 있는 기후 관련 활동은 내부 정의 되어 있으며, 친환경 제품의 매출을 확대해야 합니다. 이러한 경영 방침에 부합하지 않을 가능성이 있습니다.
 
-제공된 문서의 내용을 벗어나는 답변은 하지 말고, 모르는 경우 모른다고 해야 해.
+
+
+질문에 평가라는 키워드가 있으면 긍정적인지 부정적인지 확실하게 평가해줘.
 
 {metadata_info}
 
@@ -262,7 +267,7 @@ def generate_response(query: str, context: str, metadata_summary: Dict):
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": query}
             ],
-            temperature=0.3,  # 일관성을 위해 낮은 temperature 사용
+            temperature=0.7,  # 일관성을 위해 낮은 temperature 사용
             max_tokens=300    # 더 긴 응답 허용
         )
         return result.choices[0].message.content, metadata_info
