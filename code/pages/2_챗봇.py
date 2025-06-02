@@ -6,45 +6,77 @@ from rag_chatbot import get_relevant_context, generate_response, extract_metadat
 import chromadb
 from chromadb.utils import embedding_functions
 from dotenv import load_dotenv
+import time
+import pandas as pd
 
-# ... existing code ... 
-# .env 파일 로드
-load_dotenv()
-
-# ChromaDB 설정
-embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name="jhgan/ko-sroberta-multitask"
-    )
-    
-
-client = chromadb.PersistentClient(path="./data/chromadb")
-collection = client.get_collection(
-    name="ppt_documents_collection",
-    embedding_function=embedding_function
-)
-
-# 페이지 설정
+# 페이지 설정 
 st.set_page_config(
-    page_title="ESG 전문가 AI - 챗봇",
+    page_title="ESG 전문가",
     page_icon="💬",
     layout="wide"
 )
 
-# 제목
-st.title("💬 ESG 전문가 AI 챗봇")
-st.markdown("RAG(Retrieval Augmented Generation) 기반 ESG 전문가 AI와 대화해보세요.")
+@st.cache_resource
+def load_data():
+    # .env 파일 로드
+    load_dotenv()
 
-# 사이드바에 모델 ID 입력
-with st.sidebar:
-    st.header("모델 설정")
-    model_id = st.text_input(
-        "파인튜닝된 모델 ID",
-        help="파인튜닝이 완료된 모델의 ID를 입력하세요"
+    # 데이터 로딩
+    embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name="jhgan/ko-sroberta-multitask"
     )
     
-    if not model_id:
-        st.warning("모델 ID를 입력해주세요.")
-        st.stop()
+    client = chromadb.PersistentClient(path="./data/chromadb")
+    collection = client.get_collection(
+        name="ppt_documents_collection",
+        embedding_function=embedding_function
+    )
+
+    return collection
+
+with st.spinner("ChromaDB 컬렉션을 초기화하는 중입니다. 잠시만 기다려주세요..."):
+    # 데이터 로딩 및 세션 상태에 저장
+    if "collection" not in st.session_state:
+        st.session_state.collection = load_data()
+
+# 스타일 설정
+st.markdown("""
+    <style>
+    .user-message {
+        background-color: #F5C05C;
+        color: #000000;
+        padding: 10px 15px;
+        border-radius: 15px 15px 0 15px;
+        margin: 5px 0;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: 0;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        text-align: left;
+        float: right;
+        clear: both;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# 제목
+st.title("💬 ESG 전문가 AI 채드번")
+st.markdown("RAG(Retrieval Augmented Generation) 기반 ESG 전문가 AI와 대화해보세요.")
+
+# 사이드바에 모델 선택
+with st.sidebar:
+    st.header("모델 설정")
+    use_finetuned = st.toggle(
+        "ESG 전문가",
+        value=True,
+        help="파인튜닝된 모델을 사용하려면 켜고, 기본 모델(gpt-3.5-turbo)을 사용하려면 끄세요"
+    )
+    
+    if use_finetuned:
+        model_id = "ft:gpt-3.5-turbo-0125:personal::BdZzCnDt"
+    else:
+        model_id = "gpt-3.5-turbo"
 
 # 채팅 인터페이스
 if "messages" not in st.session_state:
@@ -52,18 +84,20 @@ if "messages" not in st.session_state:
 
 # 이전 대화 내용 표시
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-        if "metadata_summary" in message:
-            with st.expander("참고 문서 정보"):
-                st.json(message["metadata_summary"])
+    if message["role"] == "user":
+        st.markdown(f'<div class="user-message">{message["content"]}</div>', unsafe_allow_html=True)
+    else:
+        with st.chat_message("assistant"):
+            st.markdown(message["content"])
+            if "metadata_summary" in message:
+                with st.expander("참고 문서 정보"):
+                    st.json(message["metadata_summary"])
 
 # 사용자 입력
 if prompt := st.chat_input("ESG 관련 질문을 입력하세요"):
     # 사용자 메시지 추가
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
 
     # AI 응답 생성
     with st.chat_message("assistant"):
@@ -78,7 +112,7 @@ if prompt := st.chat_input("ESG 관련 질문을 입력하세요"):
                 # 관련 문서 검색
                 context, metadata_summary = get_relevant_context(
                     expanded_query,
-                    collection,
+                    st.session_state.collection,
                     metadata_filters=metadata_filters
                 )
                 
