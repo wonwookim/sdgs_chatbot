@@ -83,7 +83,7 @@ if prompt := st.chat_input("ESG 관련 질문을 입력하세요"):
                 )
                 
                 # 응답 생성
-                response = generate_response(expanded_query, context, metadata_summary)
+                response, metadata_info = generate_response(expanded_query, context, metadata_summary)
                 
                 st.markdown(response)
                 
