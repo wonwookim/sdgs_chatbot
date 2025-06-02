@@ -249,7 +249,7 @@ def generate_response(query: str, context: str, metadata_summary: Dict):
 
     try:
         result = client.chat.completions.create(
-            model="ft:gpt-3.5-turbo-0125:personal::BcpKR8kJ",  # 파인튜닝된 모델 ID
+            model="ft:gpt-3.5-turbo-0125:personal::BdZzCnDt",  # 파인튜닝된 모델 ID
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": query}
