@@ -88,9 +88,9 @@ if prompt := st.chat_input("ESG 관련 질문을 입력하세요"):
                 st.markdown(response)
                 
                 # 메타데이터 요약 정보 표시
-                if metadata_summary:
+                if context:
                     with st.expander("참고 문서 정보"):
-                        st.json(metadata_summary)
+                        st.code(context, language="text")
                 
                 # 응답 저장
                 st.session_state.messages.append({
