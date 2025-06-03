@@ -61,7 +61,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # 제목
-st.title("💬 ESG 전문가 AI 채드번")
+st.title("💬 ESG 전문가 AI 챗봇")
 st.markdown("RAG(Retrieval Augmented Generation) 기반 ESG 전문가 AI와 대화해보세요.")
 
 # 사이드바에 모델 선택
