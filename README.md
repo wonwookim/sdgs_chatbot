@@ -29,11 +29,12 @@ ESG(환경·사회·지배구조) 지속가능경영 보고서를 기반으로,
 
 ## 👨‍👩‍👧‍👦 팀 소개
 
-### 팀명: 김이박최
+### 팀명: <span style="color:#FF0000;">김</span><span style="color:#FFD700;">이</span><span style="color:#228B22;">박</span><span style="color:#1E90FF;">최</span>
 
-| 김원우 | 박진양 | 이정민 | 이지복 | 최문영 |
+| <span style="color:#FF0000;">김</span>원우 | <span style="color:#FFD700;">이</span>정민 | <span style="color:#FFD700;">이</span>지복 | <span style="color:#228B22;">박</span>진양 | <span style="color:#1E90FF;">최</span>문영 |
 |:------:|:------:|:------:|:------:|:------:|
-| ![팀원이미지1](./images/team/wonwoo.jpg) | ![팀원이미지2](./images/team/jinyang.jpg) | ![팀원이미지3](./images/team/jeongmin.jpg) | ![팀원이미지4](./images/team/jibok.png) | ![팀원이미지5](./images/team/moonyoung.jpg) |
+| <img src="./images/team/wonwoo.jpg" width="120px"> | <img src="./images/team/jeongmin.png" width="120px"> | <img src="./images/team/jibok.png" width="120px"> | <img src="./images/team/jinyang.jpg" width="120px"> | <img src="./images/team/moonyoung.png" width="120px"> |
+
 
 
 
@@ -136,7 +137,19 @@ ESG(환경·사회·지배구조) 지속가능경영 보고서를 기반으로,
 
 ## 💽 벡터 DB 연동 구현 코드
 
-추가 예정
+### ✅ 실행 방법
+
+1. `.env` 파일 생성  
+   (OpenAI API Key 환경 변수 설정)
+
+2. 전처리 코드 실행  
+```bash
+python code/ppt_processor.py
+```
+
+3. 생성된 데이터 확인  
+- 전처리된 청크 데이터: `./outputs/{기업명}_chunk.json`  
+- 벡터 DB 저장 경로 (ChromaDB): `./data/chromadb`
 
 ## 🧪 문서 기반 질의 흐름
 
@@ -177,7 +190,7 @@ GPT 응답 생성
 
 ## 📈 성능 개선 노력
 
-추가예정
+추가 예정
 
 
 ## ➡️ 향후 개선 방향
@@ -188,10 +201,11 @@ GPT 응답 생성
 ## 🗣️ 프로젝트 한줄 회고
 
 |   이름   |    한 줄 회고    | 
-|---------|------------|
-|**김원우**| 회고 작성 예정 |
-|**박진양**| 회고 작성 예정 |
-|**이정민**| 회고 작성 예정 |
-|**이지복**| 회고 작성 예정 |
-|**최문영**| 회고 작성 예정 |
+|----------|------------|
+|**<span style="color:#FF0000;">김</span>원우**| 이번 프로젝트에서는 우선순위가 낮거나 시간 대비 효과가 적은 작업은 과감히 배제하고, 핵심 과업에 집중하여 데드라인을 철저히 준수했습니다. 그 결과 목표한 성과를 성공적으로 달성할 수 있었으며, 이를 통해 한층 더 성장할 수 있었습니다. |
+|**<span style="color:#FFD700;">이</span>정민**| 좋은 팀원들과 함께 협업하며 순조롭게 프로젝트를 완수할 수 있었습니다! 특히, 팀원들과 함께 프롬프트를 조정하며 우리가 의도한 답변을 도출하려 노력했던 과정이 인상 깊었습니다. 4차까지 힘냅시다|
+|**<span style="color:#FFD700;">이</span>지복**| 12기 똑똑이들 똑순이들이랑 함께해서 많이 배웠고 지금까지 배운거 마음껏 펼칠 수 있는 소중한 기회가 되서 감사합니다~ |
+|**<span style="color:#228B22;">박</span>진양**| 함께 해서 두려울게 없는 환경을 조성해주신 조원들 덕분에 프로젝트를 무사히 마칠 수 있던거 같습니다. 도움도 많이 받았고 배운 것도 너무 많았던 이번 프로젝트! 
+대장님들 덕분에 한단계 성장해 나갈 수 있어 너무 좋은 경험이라고 생각합니다~~ |
+|**<span style="color:#1E90FF;">최</span>문영**| 처음부터 역할을 분담하고 일정에 맞춰 진행한 덕분에 큰 차질 없이 프로젝트를 마무리할 수 있었습니다~! 무엇보다도 팀원 모두가 책임감 있게 할일을 해주셔서 좋았습니다. 1,2,3,4 대장님들 최고~! |
 
