@@ -2,6 +2,7 @@
 # 🌍 ESG 전략 챗봇
 ### RAG 기반 기업 맞춤형 ESG 어시스턴트
 
+
 <p align="center">
   <img src="./images/etc/esg.jpg" width="60%" alt="ESG 챗봇 대표 이미지">
 </p>
@@ -9,8 +10,26 @@
 ESG(환경·사회·지배구조) 지속가능경영 보고서를 기반으로,  
 기업 임원진에게 **전략적 ESG 인사이트**를 제공하는 **RAG 기반 챗봇 시스템**입니다.
 
+## 📖 목차
+
+- 👨‍👩‍👧‍👦 팀 소개
+- 🖥️ 기술 스택
+- 💡 프로젝트 필요성
+- 📂 프로젝트 개요
+- 🗂 데이터 수집 및 전처리 요약
+- ⚙️ 시스템 구성도
+- 💽 벡터 DB 연동 구현 코드
+- 🧪 문서 기반 질의 흐름
+- 📚 프로젝트 문서
+- 📝 테스트 계획 및 결과 보고서
+- 📈 성능 개선 노력
+- ➡️ 향후 개선 방향
+- 🗣️ 프로젝트 한줄 회고
+
 
 ## 👨‍👩‍👧‍👦 팀 소개
+
+### 팀명: 김이박최
 
 | 김원우 | 박진양 | 이정민 | 이지복 | 최문영 |
 |:------:|:------:|:------:|:------:|:------:|
@@ -18,12 +37,12 @@ ESG(환경·사회·지배구조) 지속가능경영 보고서를 기반으로,
 
 
 
-## ⚙ 기술 스택
+## 🖥️ 기술 스택
 
 | 카테고리         | 기술 스택 |
 |------------------|-----------|
-| **Language**     | ![Python](https://img.shields.io/badge/Python-3.9-blue) |
-| **Embedding Model** | ![HuggingFace](https://img.shields.io/badge/HuggingFace-yellow?logo=huggingface&logoColor=black) |
+| **Language**     | ![Python](https://img.shields.io/badge/Python-3.10-blue) |
+| **Embedding Model<br>Cross Encoder** | ![HuggingFace](https://img.shields.io/badge/HuggingFace-yellow?logo=huggingface&logoColor=black) |
 | **LLM Model**    | ![OpenAI](https://img.shields.io/badge/OpenAI_GPT-412991?logo=openai&logoColor=white) |
 | **Vector DB**    | ![ChromaDB](https://img.shields.io/badge/ChromaDB-2D3748?logo=databricks&logoColor=white) |
 | **Framework**    | ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white) |
@@ -42,7 +61,7 @@ ESG(환경·사회·지배구조) 지속가능경영 보고서를 기반으로,
 따라서, **정보 전달을 넘어서 전략적 의사결정을 도와주는 도구**가 필요합니다.  
 이 챗봇은 기존 GPT 기반 챗봇과 달리, **RAG 기반 문서 검색 및 분석으로 실질적 조언**을 제공합니다.
 
-## 📌 프로젝트 개요
+## 📂 프로젝트 개요
 
 **ESG 경영은 이제 선택이 아닌 <u>필수</u>입니다.**  
 그러나 많은 기업들이 ‘지속가능성’의 중요성은 인식하면서도 구체적으로 *어떻게 전략에 반영할 것인가*에 대해선 막막함을 느끼곤 합니다.
@@ -103,7 +122,7 @@ ESG(환경·사회·지배구조) 지속가능경영 보고서를 기반으로,
 - 슬라이드 순서 조정 및 서브섹션 단위 재정렬
 
 
-## ⚙ 시스템 구성도
+## ⚙️ 시스템 구성도
 
 ### 📌 데이터 처리 모듈: `ppt_processor.py`
 - 슬라이드 텍스트 정제 및 청크 분할
@@ -138,10 +157,10 @@ GPT 응답 생성
 ```
 
 
-## 📌 프로젝트 문서
+## 📚 프로젝트 문서
 
 ### WBS
-![WBS](./images/outputs/wbs.png)
+![WBS](./images/outputs/wbs.jpg)
 
 ### 요구사항 명세서
 ![요구사항 명세서](./images/outputs/requirements.png)
@@ -151,22 +170,22 @@ GPT 응답 생성
 
 
 
-## 🔌 테스트 계획 및 결과 보고서
+## 📝 테스트 계획 및 결과 보고서
 
 추가 예정
 
 
-## ✂️ 성능 개선 노력
+## 📈 성능 개선 노력
 
 추가예정
 
 
-## 🔮 향후 개선 방향
+## ➡️ 향후 개선 방향
 
 추가 예정
 
 
-## 프로젝트 한줄 회고
+## 🗣️ 프로젝트 한줄 회고
 
 |   이름   |    한 줄 회고    | 
 |---------|------------|
