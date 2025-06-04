@@ -1,3 +1,4 @@
+# ESG
 import streamlit as st
 import torch
 import types
@@ -128,7 +129,7 @@ with col3:
 # 시작하기 + 로고 (박스 길이 자동, 로고 옆에)
 st.markdown("<div style='margin-top: 32px;'></div>", unsafe_allow_html=True)
 st.markdown("### 🚀 시작하기")
-start_col, logo_col = st.columns([3, 2])
+start_col, logo_col = st.columns([1, 1])
 
 with start_col:
     st.markdown("""
@@ -150,14 +151,10 @@ with start_col:
     """, unsafe_allow_html=True)
 
 with logo_col:
+    st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+    st.image(os.path.join(os.path.dirname(__file__), 'pages', 'assets', 'logos.png'), width=800)
     st.markdown("""
-    <div style='display:flex; align-items:center; gap:36px; margin-left:10px; margin-bottom:8px;'>
-        <img src='../assets/CJ_logo.png' height='60'>
-        <img src='../assets/KTNG_logo.png' height='60'>
-        <img src='../assets/Sampyo_logo.png' height='60'>
-        <img src='../assets/Shinhan_logo.png' height='60'>
-    </div>
-    <div style='margin-left:10px; font-size:1.1rem; color:#444; font-weight:500;'>
+    <div style='text-align:center; font-size:1.1rem; color:#444; font-weight:500;'>
         한국ESG기준원 선정 2023 우수기업
     </div>
     """, unsafe_allow_html=True)
