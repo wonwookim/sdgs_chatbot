@@ -16,35 +16,6 @@ ESG는 환경(Environmental),사회(Social),지배구조(Governance)의 영문 �
 기업 경영에서 지속가능성을 달성하기 위한 3가지 핵심 요소입니다.
 """, unsafe_allow_html=True)
 
-# 2. 동그라미 아이콘 + 텍스트 + 카드(리스트) 한 세트로 3개 가로 정렬
-icon_files = [
-    'assets/env_circle.png',
-    'assets/soc_circle.png',
-    'assets/gov_circle.png'
-]
-labels = [
-    "<div style='font-size:1.25rem; font-weight:700; text-align:center; margin-top:10px;'>Environmental<br><span style=\"font-size:1.1rem; font-weight:500;\">(환경)</span></div>",
-    "<div style='font-size:1.25rem; font-weight:700; text-align:center; margin-top:10px;'>Social<br><span style=\"font-size:1.1rem; font-weight:500;\">(사회)</span></div>",
-    "<div style='font-size:1.25rem; font-weight:700; text-align:center; margin-top:10px;'>Governance<br><span style=\"font-size:1.1rem; font-weight:500;\">(지배구조)</span></div>"
-]
-card_lists = [
-    [
-        "탄소 배출 감축 및 기후 변화 대응",
-        "오염물질 관리와 친환경 기술 도입",
-        "생물다양성 보존과 생태계 보호"
-    ],
-    [
-        "개인정보 보호 및 정보 보안 강화",
-        "다양성과 포용을 중시한 안전경영",
-        "지역사회와의 지속가능한 상생 관계"
-    ],
-    [
-        "투명한 이사회 및 위원회 운영",
-        "윤리적 책임과 공정한 내부 통제",
-        "부패 방지 및 준법 경영"
-    ]
-]
-
 # 카드 스타일 (min-width 줄이고 width:100% 추가)
 card_style = """
     <div class='card-hover' style='
@@ -56,6 +27,7 @@ card_style = """
     </div>
 """
 
+# 카드 스타일 CSS 복구
 st.markdown("""
     <style>
     .card-hover:hover {
@@ -86,29 +58,37 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3개 컬럼, 비율 동일하게
-icon_htmls = [
-    f"<img src='{icon_files[0]}' style='width:180px;'>",
-    f"<img src='{icon_files[1]}' style='width:180px;'>",
-    f"<img src='{icon_files[2]}' style='width:180px;'>"
-]
+# 기존 아이콘 3개 대신 중앙에 circles.png 이미지만 띄우기
+st.image(os.path.join(os.path.dirname(__file__), 'assets', 'circles_2.png'), width=850)
 
-with st.container():
-    st.markdown("""
-        <div style='margin-left:auto; margin-right:40px; width:fit-content;'>
-    """, unsafe_allow_html=True)
-    cols = st.columns(3)
-    for i, col in enumerate(cols):
-        with col:
-            st.markdown("<div style='text-align:right;'>", unsafe_allow_html=True)
-            st.image(icon_files[i], width=130)
-            st.markdown("</div>", unsafe_allow_html=True)
-            st.markdown(labels[i], unsafe_allow_html=True)
-            st.markdown("<div style='margin-top:18px;'></div>", unsafe_allow_html=True)
-            st.markdown(card_style.format(content="<ul class='pretty-list'>" + ''.join([f"<li>{item}</li>" for item in card_lists[i]]) + "</ul>"), unsafe_allow_html=True)
-    st.markdown("""
-        </div>
-    """, unsafe_allow_html=True)
+st.markdown("""
+<div style='display:flex; justify-content:center; gap:36px; flex-wrap:wrap;'>
+    <div style='min-width:220px; max-width:320px;'>
+        <div style='font-size:1.25rem; font-weight:700; text-align:center;'>Environmental<br><span style="font-size:1.1rem; font-weight:500;">(환경)</span></div>
+        <ul class='pretty-list'>
+            <li>탄소 배출 감축 및 기후 변화 대응</li>
+            <li>오염물질 관리와 친환경 기술 도입</li>
+            <li>생물다양성 보존과 생태계 보호</li>
+        </ul>
+    </div>
+    <div style='min-width:220px; max-width:320px;'>
+        <div style='font-size:1.25rem; font-weight:700; text-align:center;'>Social<br><span style="font-size:1.1rem; font-weight:500;">(사회)</span></div>
+        <ul class='pretty-list'>
+            <li>개인정보 보호 및 정보 보안 강화</li>
+            <li>다양성과 포용을 중시한 안전경영</li>
+            <li>지역사회와의 지속가능한 상생 관계</li>
+        </ul>
+    </div>
+    <div style='min-width:220px; max-width:320px;'>
+        <div style='font-size:1.25rem; font-weight:700; text-align:center;'>Governance<br><span style="font-size:1.1rem; font-weight:500;">(지배구조)</span></div>
+        <ul class='pretty-list'>
+            <li>투명한 이사회 및 위원회 운영</li>
+            <li>윤리적 책임과 공정한 내부 통제</li>
+            <li>부패 방지 및 준법 경영</li>
+        </ul>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # ESG의 중요성 (가로 3개 카드)
 st.markdown("<div style='margin-top:36px;'></div>", unsafe_allow_html=True)
